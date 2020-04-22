@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>275165987059-ut5v5apne2s5kd8v14l6t5kjha68bmjo.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.275165987059-ut5v5apne2s5kd8v14l6t5kjha68bmjo</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC-eWd6UQZGGbkZOUnwNNmYioEJCBQmoGg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>275165987059</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.splitpal.payment</string>
+	<key>PROJECT_ID</key>
+	<string>spilpal</string>
+	<key>STORAGE_BUCKET</key>
+	<string>spilpal.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:275165987059:ios:64e451ec24b34336733786</string>
+	<key>DATABASE_URL</key>
+	<string>https://spilpal.firebaseio.com</string>
+</dict>
+</plist>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { SafeAreaView, StatusBar, FlatList, TouchableOpacity, StyleSheet, Alert, Platform } from 'react-native';
 import { Footer, Container, Content, Header, View, Text, Icon, Input, Thumbnail } from 'native-base';
 import CustomFooter from '../../containers/footer';
 import CustomHeader from '../../containers/header';
@@ -50,7 +50,7 @@ export default class CreateGroup extends React.Component {
     };
 
     headerWithoutSearch = () => (
-        <Header style={{ flexDirection: 'row', height: 70, alignItems: 'center', marginHorizonta: 10 }}>
+        <Header style={{ flexDirection: 'row', height: 70, alignItems: 'center', marginHorizontal: 10 }}>
             <StatusBar style={{ backgroundColor: '#FFF' }} barStyle={'dark-content'} animated />
 
             <View>
@@ -144,8 +144,8 @@ export default class CreateGroup extends React.Component {
                     <View style={[styles.textInput, {flex:1, marginTop: 20,paddingVertical:15 }]}>
                         <Text>Subscription Date: {date.getFullYear() + '/ ' + (date.getMonth()+1) + '/ ' + date.getDate()}</Text>
                     </View>
-                    <View style={[styles.textInput, { marginTop: 20, marginBottom:20 }]}>
-
+                    <View style={[{ marginTop: 20, marginBottom:20 }]}>
+                    <Text style={{marginBottom:Platform.OS === 'ios'?5:0}}>Billing Cycle:</Text>
                     <RNPickerSelect
                         onValueChange={(value) => this.setState({ billingCycle: value })}
                         items={data}
@@ -193,7 +193,9 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         color: '#5F5F5F',
         paddingHorizontal: 20,
-        width: '100%'
+        width: '100%',
+        paddingVertical:Platform.OS === 'android'?10:15
+
 
     },
     inputIOS: {
@@ -203,6 +205,7 @@ const styles = StyleSheet.create({
         borderColor: '#5F5F5F',
         borderWidth: 1,
         borderRadius: 20,
+        marginBottom:5,
         color: '#5F5F5F',
         paddingHorizontal: 20,
         width: '100%',
@@ -210,7 +213,6 @@ const styles = StyleSheet.create({
       inputAndroid: {
         fontSize: 16,
         paddingHorizontal: 20,
-        paddingVertical: 8,
         borderWidth: 1,
         color: '#5F5F5F',
         borderRadius: 8,
@@ -236,10 +238,11 @@ const pickerSelectStyles = StyleSheet.create({
       inputAndroid: {
         fontSize: 16,
         paddingHorizontal: 20,
-        paddingVertical: 8,
-        borderWidth: 0.5,
+        paddingVertical: 12,
+        borderWidth: 2,
         color: '#5F5F5F',
         borderRadius: 8,
+
         color: 'black',
         width: '100%',
         borderColor: '#5F5F5F',

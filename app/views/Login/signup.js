@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         color: '#5F5F5F',
         paddingHorizontal: 20,
-        width: '100%'
-
+        width: '100%',
+        paddingVertical:Platform.OS==='ios'?15:10
     }
 })

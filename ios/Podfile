@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '11.1'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 def add_flipper_pods!(versions = {})
@@ -45,7 +45,10 @@ def flipper_post_install(installer)
 end
 
 target 'SplitPal' do
+  
   # Pods for SplitPal
+  use_frameworks!
+  pod 'CocoaAsyncSocket'
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -76,7 +79,7 @@ target 'SplitPal' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-
+  
   target 'SplitPalTests' do
     inherit! :complete
     # Pods for testing

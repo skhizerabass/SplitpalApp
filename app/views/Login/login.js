@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Image, StyleSheet, TextInput, Text, Alert, ActivityIndicator } from 'react-native';
+import { SafeAreaView, Image, StyleSheet, TextInput, Text, Alert, ActivityIndicator, Platform } from 'react-native';
 import { Footer, Container, Content, Input, View } from 'native-base';
 import CustomFooter from '../../containers/footer';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
         borderRadius:20,
         color:'#5F5F5F',
         paddingHorizontal:20,
+        paddingVertical:Platform.OS==='ios'?15:10
 
     }
 })

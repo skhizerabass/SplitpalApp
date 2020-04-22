@@ -286,7 +286,7 @@ export default class GroupView extends React.Component {
     headerWithoutSearch = () => {
         const {leftChecked} = this.state;
         return(
-        <Header style={{ flexDirection: 'row', height: 70,   alignItems: 'center'  }}>
+        <Header style={{ flexDirection: 'row', height: 50,   alignItems: 'center'  }}>
             <StatusBar style={{ backgroundColor: '#FFF' }} barStyle={'dark-content'} animated />
             <View style={{ flex: 1 }}>
                 <Text style={{ color: '#000000', fontFamily: THEME_FONT, fontSize: 24, marginLeft: 10 }}>
@@ -383,10 +383,7 @@ export default class GroupView extends React.Component {
                     <CardView navigation = {this.props.navigation} user={this.state.user}/>:null
                 }
                 </Content>
-                <View style={{ position: 'absolute', bottom: 50, width: '100%', alignItems: 'center' }}>
-                    <FabBtnCheck onPress={() => {  this.openCreateGroup();
-                }} />
-                </View>
+           
                 <Footer style={{borderTopRightRadius:25, borderTopLeftRadius:25, elevation:10, backgroundColor:'transparent'}} >
                 <View style={{borderTopLeftRadius:25, borderTopRightRadius:25, backgroundColor:'white', flexDirection:'row', flex:1, elevation:10}}>
                       <TouchableOpacity style={{flex:1}} onPress={()=>{this.setState({leftChecked:1})}} style={{borderBottomColor: PRIMARYCOLOR, justifyContent:'center', alignItems:'center', borderRadius:2,borderBottomWidth: leftChecked===1?2:0, flex:1}}>
@@ -406,7 +403,12 @@ export default class GroupView extends React.Component {
 
                       </TouchableOpacity>
                 </View>
+                <View style={{ position: 'absolute', bottom: 50, width: '100%', alignItems: 'center' }}>
+                <FabBtnCheck onPress={() => {  this.openCreateGroup();
+            }} />
+            </View>
               </Footer>
+            
             </Container>
         )
     }

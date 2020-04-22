@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { SafeAreaView, StatusBar, FlatList, TouchableOpacity, StyleSheet, Alert, Platform } from 'react-native';
 import { Footer, Container, Content, Header, View, Text, Icon, Input, Thumbnail } from 'native-base';
 import CustomFooter from '../../containers/footer';
 import CustomHeader from '../../containers/header';
@@ -209,6 +209,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 20,
         color: '#5F5F5F',
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+
+        paddingVertical:Platform.OS==='ios'?15:10
     }
 })
