@@ -1,0 +1,12 @@
+export const PRIMARYTEXTCOLOR= '#0511F2';
+export const PRIMARYCOLOR='#0511F2';
+export const PRIMARYDARK='#0000D9';
+export const BGCOLOR='#FFFFFF';
+export const LIGHTBGCOLOR='#FFFFFF';
+export const SECONDARYTEXT = '#FFFFFF';
+export const PENDING = '#F7B46B';
+export const UTILISED = '#FF5D7D';
+export const BALANCED= '#45B59C';
+export const ENTITLEMENT = '#374A59';
+export const HEADERCOLORS = '#FFFFFF';
+export const ACCENTCOLOR = '#FF5D7D';

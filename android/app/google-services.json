@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "275165987059",
+    "firebase_url": "https://spilpal.firebaseio.com",
+    "project_id": "spilpal",
+    "storage_bucket": "spilpal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275165987059:android:f59a9976d4b2d376733786",
+        "android_client_info": {
+          "package_name": "com.splitpal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275165987059-u0ihntbsvui570e9btdsef2j49ppd4pv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzyF7y_Lx--v4WQMTockzikc5i0gWL24c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "275165987059-u0ihntbsvui570e9btdsef2j49ppd4pv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275165987059:android:57d8c4f671a8ec9b733786",
+        "android_client_info": {
+          "package_name": "com.splitpal.payment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275165987059-u0ihntbsvui570e9btdsef2j49ppd4pv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzyF7y_Lx--v4WQMTockzikc5i0gWL24c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "275165987059-u0ihntbsvui570e9btdsef2j49ppd4pv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,11 @@
+{
+    "getPaymentIntent": {
+        "method": "POST",
+        "route": "/api/user/getPaymentIntent"
+    },
+    "test":{
+        "method":"POST",
+        "route":"/api/test"
+    }
+    
+}
