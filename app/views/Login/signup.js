@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, Image, StyleSheet, TextInput, Text, Dimensions, Alert, ActivityIndicator } from 'react-native';
-import { Footer, Container, Content, Input, View } from 'native-base';
+import { Footer, Container, Content, Input, View, Switch } from 'native-base';
 import CustomFooter from '../../containers/footer';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import CustomButton from '../../containers/button';
@@ -19,13 +19,15 @@ export default class Signup extends React.Component {
             email: '',
             password: '',
             confirmPassword: '',
-            loading: false
+            username:'',
+            loading: false,
+            terms:false
         }
         this.reference = database().ref('users');
     }
 
     onAuthChanged = (user) => {
-        const {name,email} = this.state;
+        const {name,email, username} = this.state;
         const scope = this;
         if (user) {
             // console.log(user);
@@ -33,6 +35,7 @@ export default class Signup extends React.Component {
                 name: name.trim(),
                 email: email.toLowerCase().trim(),
                 uid:user.toJSON().uid,
+                username: username.toLowerCase().trim(),
                 createdAt: Date.now()
             });
             AsyncStorage.setItem('USER',JSON.stringify({name,email,uid:user.toJSON().uid}));
@@ -54,8 +57,8 @@ export default class Signup extends React.Component {
         // this.props.navigation.dispatch(
         //     StackActions.replace('Groups')
         //   );
-        const { name, email, password, confirmPassword } = this.state;
-        if (name.length && email.length && password.length && confirmPassword.length ) {
+        const { name, email, password, confirmPassword, username } = this.state;
+        if (name.length && email.length && password.length && confirmPassword.length && username.length ) {
 
             if (password === confirmPassword) {
                 this.setState({loading:true});
@@ -91,7 +94,7 @@ export default class Signup extends React.Component {
     }
 
     render() {
-        const { loginChecked, loading } = this.state;
+        const { loginChecked, loading, terms } = this.state;
         return (
             <View style={styles.container} >
                 <View style={{ flex: 1 }}>
@@ -105,6 +108,12 @@ export default class Signup extends React.Component {
                         placeholder={'Full name'}
                         keyboardType={'default'}
                         onChangeText={(text) => { this.setState({ name: text }) }}
+                    />
+                    <TextInput
+                        style={[styles.textInput,{marginTop:20}]}
+                        placeholder={'Username'}
+                        keyboardType={'default'}
+                        onChangeText={(text) => { this.setState({ username: text }) }}
                     />
                     <TextInput
                         style={[styles.textInput, { marginTop: 20 }]}
@@ -127,12 +136,26 @@ export default class Signup extends React.Component {
                         onChangeText={(text) => { this.setState({ confirmPassword: text }) }}
 
                     />
+                    <View style={{ flexDirection:'row', marginHorizontal:20, justifyContent: 'center', alignItems: 'flex-start', marginTop: 20 }}>
+                    <TouchableOpacity style={{flex:1}} onPress={()=>{this.props.navigation.navigate('TermsAndCondition')}}>
+                        <Text>I have read and accept the User Agreement and Privacy Policy</Text>
+                    </TouchableOpacity>
+                    <Switch
+                        thumbColor={PRIMARYCOLOR}
+                        trackColor={PRIMARYCOLOR}
+                        onTintColor={PRIMARYCOLOR}
+                        onValueChange={(value)=>{
+                            this.setState({terms:value})
+                        }}
+                        value={terms}
+                    />
+                    </View>
 
 
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 100 }}>
                     {loading?
                         <ActivityIndicator size={'large'}  color={PRIMARYCOLOR}/>:
-                        <CustomButton text={'Sign up'} onPress={() => { this.signup() }} />
+                        <CustomButton disabled={!terms} text={'Sign up'} onPress={() => { this.signup() }} />
                     }
                     </View>
                 </View>

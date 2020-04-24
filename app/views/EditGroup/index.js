@@ -70,7 +70,11 @@ export default class EditGroup extends React.Component {
         });
     }
     componentWillUnmount(){
+        try{
         this.subscribe.off('value',()=>{});
+        }catch(ex){
+            
+        }
     }
 
     headerWithoutSearch = () => (

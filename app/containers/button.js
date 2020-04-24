@@ -6,12 +6,14 @@ import { THEME_BOLD_FONT, THEME_FONT } from '../constants/fontFamily'
 
 
 const CustomButton = (props) => {
-    console.log(props.leftText);
+    // console.log(props.leftText);
     return (
         <TouchableOpacity style={{ flex: 1 }} onPress={props.onPress} style={{
             backgroundColor: PRIMARYCOLOR,
             borderRadius: 20, minWidth: 150, elevation: 2, justifyContent: 'center', paddingHorizontal: 20, paddingVertical: 10, alignItems: 'center'
-        }}>
+        }}
+        disabled={props.disabled}
+        >
             <Text style={{ color: '#FFFFFF', fontSize: 20, fontFamily: THEME_FONT }}>
 
                 {props.text}

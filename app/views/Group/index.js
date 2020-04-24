@@ -17,6 +17,7 @@ import TransactionItem from '../../containers/transactionItem';
 import AsyncStorage from '@react-native-community/async-storage';
 import urlParse from 'url-parse';
 import { requestHandler } from '../../utils/requestHandler';
+import Account from '../Account';
 
 export default class GroupView extends React.Component {
     _menu = null;
@@ -120,12 +121,20 @@ export default class GroupView extends React.Component {
         
         database().ref('transactions').child(currentUser).once('value').then((snapshot)=>{
             let transactionPromises=[];
+            const SERVICE_CHARGES = 0.2;
+
             //  console.log('wow');
             snapshot.forEach(childSnapshot=>{
                 let t = childSnapshot.val();
-                transactionPromises.push(database().ref('users').child(t.received?t.transferredFrom:t.transferredTo).once('value').then(userSnapshot=>{
+                transactionPromises.push(
+                    database().ref('users').child(t.received?t.transferredFrom:t.transferredTo).once('value').then(userSnapshot=>{
                     t.user = userSnapshot.val();
+                    if(!t.received){
+                        transactions.push({...t,type:'subscription'});
+                    }
                     transactions.push(t);
+
+                   
                 }));
              
 
@@ -138,17 +147,20 @@ export default class GroupView extends React.Component {
     }
 
     componentWillUnmount(){
+        try{
         this.subscribe.off('value',()=>{});
         Linking.removeEventListener('url', this.handleOpenURL);
+        }catch(ex){
 
+        }
     }
     
     handleOpenURL=(event)=> {
-        console.log(event);
+        // console.log(event);
         const parsedUrl = urlParse(event.url, true);
 
         let {query: {group}} = parsedUrl;
-        console.log('MYGROUP',group)
+        // console.log('MYGROUP',group)
             // this.getGroup(group);
             let scope = this;
             if(group){
@@ -177,7 +189,7 @@ export default class GroupView extends React.Component {
 
                             }
                         }else{
-                            console.log('WOW');
+                            // console.log('WOW');
                         }
                     })
                 
@@ -188,9 +200,9 @@ export default class GroupView extends React.Component {
         const { navigate } = this.props.navigation;
         if (url) {
             const parsedUrl = urlParse(url, true);
-            console.log(parsedUrl);
+            // console.log(parsedUrl);
             const {query: {group}} = parsedUrl;
-            console.log(group);
+            // console.log(group);
             this.getGroup(group);
             // // if user id query param exists, lets load that user's profile
             // // if (userId) {
@@ -248,10 +260,11 @@ export default class GroupView extends React.Component {
             <Menu
                 ref={this.setMenuRef}
             >
-                <MenuItem onPress={()=>{this.hideMenu(); 
-                    this.props.navigation.navigate('AccountInformation');
-                }}>Account</MenuItem>
-
+             {  
+                //   <MenuItem onPress={()=>{this.hideMenu(); 
+                //     this.props.navigation.navigate('AccountInformation');
+                // }}>Account</MenuItem>
+                }
                 <MenuItem onPress={()=>{this.hideMenu(); 
                     this.props.navigation.navigate('CreateGroup');
                 }}>Create Group</MenuItem>
@@ -285,12 +298,12 @@ export default class GroupView extends React.Component {
 
     headerWithoutSearch = () => {
         const {leftChecked} = this.state;
-        return(
-        <Header style={{ flexDirection: 'row', height: 50,   alignItems: 'center'  }}>
+        if(leftChecked === 2){
+            return(
+            <Header style={{ flexDirection: 'row', minHeight: 50,   alignItems: 'center', marginTop: leftChecked ===2?10:0  }}>
             <StatusBar style={{ backgroundColor: '#FFF' }} barStyle={'dark-content'} animated />
             <View style={{ flex: 1 }}>
-                <Text style={{ color: '#000000', fontFamily: THEME_FONT, fontSize: 24, marginLeft: 10 }}>
-                    {this.state.searching?'Searching....':leftChecked===1?'Groups':leftChecked ===2 ?'Hi '+this.state.user.name:'Fundings'}
+                <Text style={{ color: '#000000', fontFamily: THEME_FONT, fontSize: 20, marginLeft: 10 }}>Hi <Text style={{fontSize:24,color:PRIMARYCOLOR}}>{this.state.user.name.toUpperCase()}</Text> here are your transactions.
             </Text>
             </View>
             <View>
@@ -298,7 +311,23 @@ export default class GroupView extends React.Component {
                 {this.renderMenu()}
             </View>
         </Header>
-    )}
+        )
+        }else{
+        return(
+        <Header style={{ flexDirection: 'row', minHeight: 50,   alignItems: 'center', marginTop: leftChecked ===2?10:0  }}>
+            <StatusBar style={{ backgroundColor: '#FFF' }} barStyle={'dark-content'} animated />
+            <View style={{ flex: 1 }}>
+                <Text style={{ color: '#000000', fontFamily: THEME_FONT, fontSize: 24, marginLeft: 10 }}>
+                    {this.state.searching?'Searching....':leftChecked===1?'Groups':leftChecked ===2 ?'Hi '+this.state.user.name.toUpperCase()+' here are your transactions. ':leftChecked ===3 ?'Fundings':leftChecked ===4?'Account Settings':null}
+            </Text>
+            </View>
+            <View>
+                <Icon onPress={() => this.showMenu()} type={'MaterialCommunityIcons'} name={'dots-vertical'} style={{ fontSize: 24, color: '#000' }} />
+                {this.renderMenu()}
+            </View>
+        </Header>
+        )}
+    }
 
 
     renderTransaction=({item})=>{
@@ -380,17 +409,19 @@ export default class GroupView extends React.Component {
                             }
                         />:
                                     leftChecked ===3 ?
-                    <CardView navigation = {this.props.navigation} user={this.state.user}/>:null
+                    <CardView navigation = {this.props.navigation} user={this.state.user}/>:
+                    leftChecked===4?
+                    <Account navigation = {this.props.navigation}/>:null
+                    
                 }
                 </Content>
-           
+             
                 <Footer style={{borderTopRightRadius:25, borderTopLeftRadius:25, elevation:10, backgroundColor:'transparent'}} >
+            
+            
                 <View style={{borderTopLeftRadius:25, borderTopRightRadius:25, backgroundColor:'white', flexDirection:'row', flex:1, elevation:10}}>
                       <TouchableOpacity style={{flex:1}} onPress={()=>{this.setState({leftChecked:1})}} style={{borderBottomColor: PRIMARYCOLOR, justifyContent:'center', alignItems:'center', borderRadius:2,borderBottomWidth: leftChecked===1?2:0, flex:1}}>
                     {
-                        //   <Text style={{color:PRIMARYTEXTCOLOR, fontSize:14, fontFamily:leftChecked===1?THEME_BOLD_FONT:THEME_FONT}}>   
-                        //         Group
-                        //   </Text>
                         <Icon name={'home'} type={'MaterialCommunityIcons'} style={{color:leftChecked===1?PRIMARYCOLOR:'black', fontSize:28}}/>
                     }
                       </TouchableOpacity>
@@ -399,16 +430,19 @@ export default class GroupView extends React.Component {
 
                       </TouchableOpacity>
                       <TouchableOpacity style={{flex:1}} onPress={()=>{this.setState({leftChecked:3})}} style={{borderBottomColor: PRIMARYCOLOR,  justifyContent:'center', alignItems:'center', borderBottomWidth: leftChecked===3?2:0, flex:1}}>
-                      <Icon name={'credit-card-multiple'} type={'MaterialCommunityIcons'} style={{color:leftChecked===3?PRIMARYCOLOR:'black', fontSize:28}}/>
+                        <Icon name={'credit-card-multiple'} type={'MaterialCommunityIcons'} style={{color:leftChecked===3?PRIMARYCOLOR:'black', fontSize:28}}/>
 
                       </TouchableOpacity>
+                            <TouchableOpacity style={{flex:1}} onPress={()=>{this.setState({leftChecked:4})}} style={{borderBottomColor: PRIMARYCOLOR,  justifyContent:'center', alignItems:'center', borderBottomWidth: leftChecked===4?2:0, flex:1}}>
+                            <Icon name={'account-circle'} type={'MaterialIcons'} style={{color:leftChecked===4?PRIMARYCOLOR:'black', fontSize:30}}/>
+
+                    </TouchableOpacity>
                 </View>
-                <View style={{ position: 'absolute', bottom: 50, width: '100%', alignItems: 'center' }}>
-                <FabBtnCheck onPress={() => {  this.openCreateGroup();
-            }} />
-            </View>
               </Footer>
-            
+              <View style={{ position: 'absolute', bottom: 50, width: '100%', elevation:10, alignItems: 'center' }}>
+              <FabBtnCheck onPress={() => {  this.openCreateGroup();
+          }} />
+          </View>
             </Container>
         )
     }

@@ -177,8 +177,10 @@ export default class GroupInformation extends React.Component {
                         <Text style={{ fontSize: 12, color: PRIMARYCOLOR, marginTop: 10 }}>
                             Total Payment
                         </Text>
-                        <Text style={{ fontSize: 16, color: 'rgba(0, 0, 0, 0.87)', marginTop:3 }}>
-                            $ {group.amount?totalAmount(group.amount):'0'}
+                        <Text style={{ fontSize: 20, color: 'rgba(0, 0, 0, 0.87)', marginTop:3, fontFamily:THEME_BOLD_FONT, alignItems:'center' }}>
+                            $ {group.amount? totalAmount(group.amount):'0'}
+                            {group.amount?<Text style={{ fontSize: 16, color: 'rgba(0, 0, 0, 0.87)', marginTop:3, fontFamily:THEME_FONT }}>
+                            {' ( $'+  group.amount + ' +  20% Service fee ) '}</Text>:''}
                         </Text>
                     </View>
                     <Text style={{ fontSize: 12, color: PRIMARYCOLOR, marginTop: 10, padding:15 }}>

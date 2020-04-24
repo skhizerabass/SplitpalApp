@@ -18,6 +18,7 @@ export default class Auth extends React.Component {
     }
     render() {
         const { loginChecked } = this.state;
+        
         return (
             <Container >
             <Header style={{height:0}}>
@@ -31,6 +32,7 @@ export default class Auth extends React.Component {
                         <Content padder >
                             <Signup navigation = {this.props.navigation} />
                         </Content>
+                        
                 }
                 <CustomFooter
                     leftText={'LOGIN'}

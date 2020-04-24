@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, FlatList, TouchableOpacity, StyleSheet, Alert, Platform } from 'react-native';
-import { Footer, Container, Content, Header, View, Text, Icon, Input, Thumbnail } from 'native-base';
+import { Footer, Container, Content, Header, View, Text, Icon, Input, Thumbnail, DatePicker } from 'native-base';
 import CustomFooter from '../../containers/footer';
 import CustomHeader from '../../containers/header';
 import GroupItem from '../../containers/groupItem';
@@ -29,12 +29,13 @@ export default class CreateGroup extends React.Component {
             name: '',
             subscription: '',
             amount: 0,
-            billingCycle: 'Monthly'
-        };
-
-
-
-    }
+            billingCycle: 'Monthly',
+            chosenDate: new Date() };
+        this.setDate = this.setDate.bind(this);
+      }
+      setDate(newDate) {
+        this.setState({ chosenDate: newDate });
+      }
 
     setMenuRef = ref => {
         this._menu = ref;
@@ -81,7 +82,7 @@ export default class CreateGroup extends React.Component {
             let uid = auth().currentUser.uid;
             let updates = {};
             let group = { name: name.toLowerCase().trim(), subscription: subscription.toLowerCase().trim(), amount, key, uid, createdAt: Date.now(),
-                date:this.getDate().getTime(),
+                date:new Date(this.state.chosenDate).getTime(),
                 cycle:billingCycle
                 
             };
@@ -141,10 +142,25 @@ export default class CreateGroup extends React.Component {
                         onChangeText={(text) => { this.setState({ amount: text }) }}
                         value={amount}
                     />
-                    <View style={[styles.textInput, {flex:1, marginTop: 20,paddingVertical:15 }]}>
-                        <Text>Subscription Date: {date.getFullYear() + '/ ' + (date.getMonth()+1) + '/ ' + date.getDate()}</Text>
+                    <View onPress={()=>{}} style={[{flex:1, marginTop:20 }]}>
+                    <DatePicker
+                    defaultDate={new Date()}
+                    minimumDate={new Date()}
+                    locale={"en"}
+                    timeZoneOffsetInMinutes={undefined}
+                    modalTransparent={false}
+                    animationType={"fade"}
+                    androidMode={"default"}
+                    
+                    placeHolderText="Select Subscription Date"
+                    textStyle={[styles.textInput,{ color: PRIMARYCOLOR, paddingVertical:15 }]}
+                    placeHolderTextStyle={[styles.textInput,{ color: PRIMARYCOLOR, paddingVertical:15 }]}
+                    onDateChange={this.setDate}
+                    disabled={false}
+                    />
+                    
                     </View>
-                    <View style={[{ marginTop: 20, marginBottom:20 }]}>
+                    <View style={[{ marginTop: 10, marginBottom:20, marginHorizontal:10 }]}>
                     <Text style={{marginBottom:Platform.OS === 'ios'?5:0}}>Billing Cycle:</Text>
                     <RNPickerSelect
                         onValueChange={(value) => this.setState({ billingCycle: value })}
@@ -169,7 +185,7 @@ export default class CreateGroup extends React.Component {
                     </View>
 
                 </Content>
-
+              
             </Container>
         )
     }

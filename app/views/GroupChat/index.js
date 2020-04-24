@@ -107,7 +107,7 @@ export default class GroupChat extends React.Component {
     getUser=async (uid)=>{
         const {users} = this.state;
         const scope = this;
-        console.log(uid);
+        // console.log(uid);
         if(!users[uid]){
             // database().ref('users').child(uid).once('value').then((snapshot)=>{
             //     users[snapshot.val().uid] = snapshot.val();
@@ -139,9 +139,12 @@ export default class GroupChat extends React.Component {
     }
 
     componentWillUnmount(){
+        try{
         this.subscribe.off('value',()=>{})
         this.subscribeChat.off('value',()=>{})
+    }catch(ex){
 
+    }
     }
 
 

@@ -12,6 +12,7 @@ import CreateGroup from './CreateGroup';
 import AddCard from './AddCard';
 import ForgotPassword from './ForgetPassword';
 import EditGroup from './EditGroup';
+import TermsAndCondition from './Login/TermsAndCondition';
 
 
 const Stack = createStackNavigator();
@@ -32,6 +33,7 @@ function App() {
         <Stack.Screen name='AddCard' component={AddCard}/>
         <Stack.Screen name='ForgotPassword' component={ForgotPassword}/>
         <Stack.Screen name='EditGroup' component={EditGroup}/>
+        <Stack.Screen name='TermsAndCondition' component={TermsAndCondition}/>
 
       </Stack.Navigator>
     </NavigationContainer>

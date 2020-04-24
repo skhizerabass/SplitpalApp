@@ -8,9 +8,7 @@ const FabBtnCheck = (props) => {
 
     return (
         <TouchableOpacity style={styles.container} onPress={props.onPress}>
-        <View style={styles.innerView}>
             <Icon type={"MaterialCommunityIcons"} name={"plus"} style={styles.icon}/>
-            </View>
         </TouchableOpacity>
 
     )
@@ -24,10 +22,10 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         justifyContent:'center',
         alignItems:'center',    
-        elevation:10
+        elevation:12
     },
     innerView:{
-        width:40, height:40,
+        width:50, height:50,
         backgroundColor:PRIMARYCOLOR,
         justifyContent:'center',
         alignItems:'center',

@@ -10,10 +10,15 @@ import { PRIMARYCOLOR } from '../../constants/colorConstants';
 import { requestHandler } from '../../utils/requestHandler';
 import database from '@react-native-firebase/database';
 
-stripe.setOptions({
-    publishableKey: 'pk_live_O15PpRa26KNUjhzV3EIyz1TF00tZvkVlej',
+// stripe.setOptions({
+//     publishableKey: 'pk_live_O15PpRa26KNUjhzV3EIyz1TF00tZvkVlej',
+//     androidPayMode: 'test',
+//   })
+
+  stripe.setOptions({
+    publishableKey: 'pk_test_PuyAisdrSsMI9txyULeh0gE700Qomup2GI',
     androidPayMode: 'test',
-  })
+})
 export default class AddCard extends PureComponent {
   static title = 'Custom Card'
 
@@ -38,7 +43,7 @@ export default class AddCard extends PureComponent {
             }
             // console.log(cvc);
           const token = await stripe.createTokenWithCard(cvc);
-        // console.log(token)
+        console.log(token)
 
      try {
 
@@ -46,7 +51,7 @@ export default class AddCard extends PureComponent {
             // console.log(result);
             
             let data = await requestHandler('getPaymentIntent',{uid:user.uid,custID: user.stripeID, cardID: token.tokenId,pmID:user.card?user.card.cardId : null});
-            console.log('DATA',data);
+            // console.log('DATA',data);
             if(data.setupIntent){
                     database().ref().child('users').child(user.uid).child('card').set({...token.card,});
                     this.props.navigation.pop();
@@ -70,7 +75,7 @@ export default class AddCard extends PureComponent {
   }
 
   _onChange = form =>{ 
-      console.log(form)
+      // console.log(form)
         // const cvc={
         //     number: form.number,
         //     expMonth: form.expiry.split('/')[0],

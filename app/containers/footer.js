@@ -6,7 +6,7 @@ import { THEME_BOLD_FONT, THEME_FONT } from '../constants/fontFamily'
 
 
 const CustomFooter = (props) => {
-    console.log(props.leftText);
+    // console.log(props.leftText);
     return (
         <Footer style={{borderTopRightRadius:25, borderTopLeftRadius:25, elevation:10, backgroundColor:'transparent'}} >
           <View style={{borderTopLeftRadius:25, borderTopRightRadius:25, backgroundColor:'white', flexDirection:'row', flex:1, elevation:10}}>

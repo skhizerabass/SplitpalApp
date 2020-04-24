@@ -77,7 +77,7 @@ export default class Login extends React.Component {
                     Alert.alert('Please! try again later');
                     
                 }
-                console.log(error);
+                // console.log(error);
             });
         }else{
             Alert.alert('Please! fill all the fields.');
